@@ -184,6 +184,14 @@ namespace WindowsFormsApp1.Utils
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+
+        [DllImport("user32.dll")]
+        static extern void PostMessage(IntPtr hwnd, uint msg, int w, string l);
+        [DllImport("user32.dll")]
+        static extern void PostMessage(IntPtr hwnd, uint msg, int w, int l);
+        [DllImport("user32.dll ", EntryPoint = "SendMessage ")]
+        static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam, string lParam);
         #endregion
         [DllImport("user32.dll", SetLastError = true)]
         static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
@@ -254,7 +262,8 @@ namespace WindowsFormsApp1.Utils
                 Thread.Sleep(times);
             //设置剪切板数据
                 Clipboard.SetText(msg);
-                SendCtrlV(hwnd);
+                PostMessage(hwnd, 194, 0, msg);//向QQ输入框粘贴字符，this.textBox1.Text是要发送的文字信息
+                //SendCtrlV(hwnd);
                 if(picdata != null)
                 {
                     Thread.Sleep(times);
@@ -266,6 +275,20 @@ namespace WindowsFormsApp1.Utils
             });
 
             // 如果有图片先去下载下图片
+
+        }
+        /// <summary>
+        /// 发送QQ聊天bacjk
+        /// </summary>
+        /// <param name="msg"></param>
+        public static void SendQQChatBack(string robotqq,string msg,List<string> groupid)
+        {
+            int times = 300;
+            groupid.ForEach(hwnd =>
+            {
+                QQApiHelper.SendQQMsg(robotqq, hwnd, msg);
+                Thread.Sleep(times);
+            });
 
         }
 

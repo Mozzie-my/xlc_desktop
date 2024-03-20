@@ -23,7 +23,7 @@ namespace WindowsFormsApp1.Utils
         public static string SendQQMsg(string bot, string groupId, string msg)
         {
             var body = CreateMyqqReqBody("Api_SendMsg");
-            body.SetParams(bot, 1, "", groupId, msg);
+            body.SetParams(bot, 2, groupId,"", msg);
 
             return sendPost(body);
         }
