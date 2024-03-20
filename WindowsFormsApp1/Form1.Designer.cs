@@ -51,6 +51,8 @@
             this.transRTB = new System.Windows.Forms.RichTextBox();
             this.orginRTB = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.SendtextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.log.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MonGroupGrid)).BeginInit();
@@ -82,6 +84,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.SendtextBox);
             this.tabPage1.Controls.Add(this.blockingWordsBox);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.button1);
@@ -91,10 +95,10 @@
             this.tabPage1.Controls.Add(this.GetGroupBtn);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(794, 426);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "监控QQ";
+            this.tabPage1.Text = "监控QQ群";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
@@ -121,7 +125,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(332, 6);
+            this.button1.Location = new System.Drawing.Point(709, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -144,7 +148,7 @@
             this.MontextBox.Multiline = true;
             this.MontextBox.Name = "MontextBox";
             this.MontextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.MontextBox.Size = new System.Drawing.Size(397, 171);
+            this.MontextBox.Size = new System.Drawing.Size(188, 171);
             this.MontextBox.TabIndex = 3;
             // 
             // MonGroupGrid
@@ -208,7 +212,7 @@
             this.tabPage2.Controls.Add(this.wslog);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(794, 426);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "日志";
@@ -223,7 +227,7 @@
             this.TransTab.Controls.Add(this.orginRTB);
             this.TransTab.Location = new System.Drawing.Point(4, 22);
             this.TransTab.Name = "TransTab";
-            this.TransTab.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TransTab.Padding = new System.Windows.Forms.Padding(3);
             this.TransTab.Size = new System.Drawing.Size(794, 426);
             this.TransTab.TabIndex = 2;
             this.TransTab.Text = "转链";
@@ -279,6 +283,26 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // SendtextBox
+            // 
+            this.SendtextBox.Location = new System.Drawing.Point(218, 33);
+            this.SendtextBox.Multiline = true;
+            this.SendtextBox.Name = "SendtextBox";
+            this.SendtextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.SendtextBox.Size = new System.Drawing.Size(188, 171);
+            this.SendtextBox.TabIndex = 8;
+            this.SendtextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(216, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "发生QQ群";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -322,6 +346,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox blockingWordsBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox SendtextBox;
     }
 }
 
