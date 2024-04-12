@@ -74,19 +74,19 @@ namespace WindowsFormsApp1
 
             }
             sb.Clear();
-<<<<<<< HEAD
+
             if (_ini.GetIniString("WX", "WxSendID", "", sb, sb.Capacity))
             {
                 WxSendID = sb.ToString();
                 WxSendIDList = new List<string>(WxSendID.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
-=======
+            }
+            sb.Clear();
             if (_ini.GetIniString("xlc", "SendGroup", "", sb, sb.Capacity))
             {
                 SendGroup = sb.ToString();
                 SendtextBox.Text = SendGroup;
                 SendGroupList = new List<string>(SendGroup.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
 
->>>>>>> origin/master
             }
             Control.CheckForIllegalCrossThreadCalls = false; //加载时 取消跨线程检查
         }
@@ -377,7 +377,6 @@ namespace WindowsFormsApp1
             blockingWordsList = new List<string>(blockingWords.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
 
         }
-<<<<<<< HEAD
         /// <summary>
         /// 获取微信好友列表
         /// </summary>
@@ -437,7 +436,7 @@ namespace WindowsFormsApp1
             _ini.WriteIniString("WX", "WxSendID", newval);
             WxSendID = newval;
             Console.WriteLine(wxGroupDGV.Rows[e.RowIndex].Cells[1].Value);
-=======
+        }
 
         private void label5_Click(object sender, EventArgs e)
         {
@@ -449,7 +448,6 @@ namespace WindowsFormsApp1
             _ini.WriteIniString("xlc", "SendGroup", SendtextBox.Text);
             SendGroup = SendtextBox.Text;
             blockingWordsList = new List<string>(SendGroup.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
->>>>>>> origin/master
         }
     }
 }

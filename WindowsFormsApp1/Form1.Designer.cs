@@ -51,17 +51,14 @@
             this.transRTB = new System.Windows.Forms.RichTextBox();
             this.orginRTB = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-<<<<<<< HEAD
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.wxGroupDGV = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-=======
             this.SendtextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
->>>>>>> origin/master
             this.log.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MonGroupGrid)).BeginInit();
@@ -295,7 +292,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-<<<<<<< HEAD
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.wxGroupDGV);
@@ -355,7 +351,6 @@
             this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.Width = 140;
-=======
             // SendtextBox
             // 
             this.SendtextBox.Location = new System.Drawing.Point(218, 33);
@@ -364,7 +359,7 @@
             this.SendtextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.SendtextBox.Size = new System.Drawing.Size(188, 171);
             this.SendtextBox.TabIndex = 8;
-            this.SendtextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            //this.SendtextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label5
             // 
@@ -374,8 +369,7 @@
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 9;
             this.label5.Text = "发生QQ群";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
->>>>>>> origin/master
+            //this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // MainForm
             // 
@@ -422,17 +416,15 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox blockingWordsBox;
-<<<<<<< HEAD
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView wxGroupDGV;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-=======
+
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox SendtextBox;
->>>>>>> origin/master
     }
 }
 
