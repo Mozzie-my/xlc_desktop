@@ -51,11 +51,19 @@
             this.transRTB = new System.Windows.Forms.RichTextBox();
             this.orginRTB = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.wxGroupDGV = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.log.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MonGroupGrid)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.TransTab.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wxGroupDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // wslog
@@ -74,6 +82,7 @@
             this.log.Controls.Add(this.tabPage1);
             this.log.Controls.Add(this.tabPage2);
             this.log.Controls.Add(this.TransTab);
+            this.log.Controls.Add(this.tabPage3);
             this.log.Location = new System.Drawing.Point(0, -1);
             this.log.Name = "log";
             this.log.SelectedIndex = 0;
@@ -91,7 +100,7 @@
             this.tabPage1.Controls.Add(this.GetGroupBtn);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(794, 426);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "监控QQ";
@@ -208,7 +217,7 @@
             this.tabPage2.Controls.Add(this.wslog);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(794, 426);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "日志";
@@ -223,7 +232,7 @@
             this.TransTab.Controls.Add(this.orginRTB);
             this.TransTab.Location = new System.Drawing.Point(4, 22);
             this.TransTab.Name = "TransTab";
-            this.TransTab.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TransTab.Padding = new System.Windows.Forms.Padding(3);
             this.TransTab.Size = new System.Drawing.Size(794, 426);
             this.TransTab.TabIndex = 2;
             this.TransTab.Text = "转链";
@@ -279,6 +288,66 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.wxGroupDGV);
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(794, 426);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // wxGroupDGV
+            // 
+            this.wxGroupDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.wxGroupDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.wxGroupDGV.Location = new System.Drawing.Point(423, 30);
+            this.wxGroupDGV.Name = "wxGroupDGV";
+            this.wxGroupDGV.RowHeadersWidth = 51;
+            this.wxGroupDGV.RowTemplate.Height = 23;
+            this.wxGroupDGV.Size = new System.Drawing.Size(361, 387);
+            this.wxGroupDGV.TabIndex = 4;
+            this.wxGroupDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.wxGroupDGV_CellContentClick);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(423, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "获取微信群列表";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.HeaderText = "#";
+            this.dataGridViewCheckBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewCheckBoxColumn1.Width = 20;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "昵称";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 140;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -295,6 +364,8 @@
             this.tabPage2.ResumeLayout(false);
             this.TransTab.ResumeLayout(false);
             this.TransTab.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.wxGroupDGV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -322,6 +393,12 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox blockingWordsBox;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView wxGroupDGV;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }
 

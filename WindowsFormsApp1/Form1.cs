@@ -36,6 +36,10 @@ namespace WindowsFormsApp1
         private TaobaoService taobaoService;
         IniFileHelper _ini = new IniFileHelper();
         string MonGroupID="";
+        // 微信发送ID;
+        string WxSendID = "";
+        List<string> WxSendIDList= new List<string>();
+
         // 屏蔽关键词
         string blockingWords = "";
         string robotqq = "";
@@ -64,6 +68,12 @@ namespace WindowsFormsApp1
                 blockingWordsBox.Text = blockingWords;
                 blockingWordsList = new List<string>(blockingWords.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
 
+            }
+            sb.Clear();
+            if (_ini.GetIniString("WX", "WxSendID", "", sb, sb.Capacity))
+            {
+                WxSendID = sb.ToString();
+                WxSendIDList = new List<string>(WxSendID.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
             }
             Control.CheckForIllegalCrossThreadCalls = false; //加载时 取消跨线程检查
         }
@@ -342,6 +352,66 @@ namespace WindowsFormsApp1
             Console.WriteLine("写入新的屏蔽词："+ blockingWordsBox.Text);
             blockingWordsList = new List<string>(blockingWords.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
 
+        }
+        /// <summary>
+        /// 获取微信好友列表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var wxfriends = WXApiHelper.GetFriendList();
+
+            wxfriends.ForEach(x =>
+            {
+                // 只展示群组和朋友
+                if(x.Type == "3" || x.Type == "2")
+                {
+                    int index = wxGroupDGV.Rows.Add();
+                    if (WxSendID.IndexOf(x.UserName.ToString()) != -1)
+                    {
+
+                        wxGroupDGV.Rows[index].Cells[0].Value = true;
+                    }
+                    wxGroupDGV.Rows[index].Cells[1].Value = x.UserName;
+                    wxGroupDGV.Rows[index].Cells[2].Value = x.NickName;
+                    Console.WriteLine(x.NickName);
+                }
+            });
+
+        }
+
+        private void wxGroupDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string id = wxGroupDGV.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string newval;
+            if ((bool)wxGroupDGV.Rows[e.RowIndex].Cells[0].EditedFormattedValue)
+            {
+                if (WxSendID.IndexOf(id) == -1)
+                {
+                    if (WxSendID != "")
+                    {
+                        newval = WxSendID + "#" + id;
+                    }
+                    else
+                    {
+                        newval = id;
+                    }
+                }
+                else
+                {
+                    newval = WxSendID;
+                }
+            }
+            else
+            {
+                List<string> c = WxSendID.Split('#').ToList<string>();
+                List<string> LIS = c.Where(x => x.Trim() != id).ToList();
+                newval = string.Join("#", LIS);
+            }
+            _ini.WriteIniString("WX", "WxSendID", newval);
+            WxSendID = newval;
+            Console.WriteLine(wxGroupDGV.Rows[e.RowIndex].Cells[1].Value);
         }
     }
 }
