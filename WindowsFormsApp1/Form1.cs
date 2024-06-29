@@ -34,6 +34,7 @@ namespace WindowsFormsApp1
 
         private HttpListenerServer httpListenerServer;
         private TaobaoService taobaoService;
+        private TransService transService;
         IniFileHelper _ini = new IniFileHelper();
         string MonGroupID="";
         // 屏蔽关键词
@@ -52,6 +53,8 @@ namespace WindowsFormsApp1
             InitializeComponent();
 
             taobaoService = new TaobaoService();
+            transService = new TransService();
+
 
             queueHelper.StartMonitoring();
 
@@ -133,7 +136,7 @@ namespace WindowsFormsApp1
             // 使用 Control.Invoke 将结果传递给 UI 线程
             BeginInvoke(new Action(() =>
             {
-                var msg = JsonConvert.DeserializeObject<MQReceiveMsg>(data);
+               var msg = JsonConvert.DeserializeObject<MQReceiveMsg>(data);
                 if (MonGroupID.IndexOf(msg.MQ_fromID) != -1)
                 {
                     var text = HttpUtility.UrlDecode(msg.MQ_msg);
@@ -143,42 +146,28 @@ namespace WindowsFormsApp1
                     }
                     else
                     {
-                        var link = TextUtils.ExtractLink(text);
-                        var tbcode = TextUtils.ExtractTaobaoCode(text);
-                        if (!String.IsNullOrEmpty(link) || !String.IsNullOrEmpty(tbcode))
-                        {
-                            var res = taobaoService.trans(text);
-                            if (res != null)
-                            {
-                                text = TextUtils.ReplaceLinkAndTaobaoCode(text, res.short_link, res.new_data);
-                            }
-                        }
-                        QQBroadSend.SendQQChatBack(robotqq, text, SendGroupList);
-                        //// 替换表情
-                        //text = TextUtils.ReplaceEmojisWithHex(text);
-
-                        //var picGuid = TextUtils.ExtractPicGuid(text);
-                        //var qqLink = "";
-                        //if (picGuid != null)
-                        //{
-                        //    text = text.Replace(picGuid, "");
-                        //    //qqLink = QQApiHelper.GetPicLink(robotqq, picGuid);
-                        //}
+                        text = transService.trans(text);
                         //var link = TextUtils.ExtractLink(text);
                         //var tbcode = TextUtils.ExtractTaobaoCode(text);
-                        //if (!String.IsNullOrEmpty(link)||!String.IsNullOrEmpty(tbcode))
+                        //if (!String.IsNullOrEmpty(link) || !String.IsNullOrEmpty(tbcode))
                         //{
                         //    var res = taobaoService.trans(text);
                         //    if (res != null)
                         //    {
                         //        text = TextUtils.ReplaceLinkAndTaobaoCode(text, res.short_link, res.new_data);
-                        //        if (string.IsNullOrEmpty(qqLink))
-                        //        {
-                        //            qqLink = res.main_pic;
-                        //        }
                         //    }
                         //}
+                        QQBroadSend.SendQQChatBack(robotqq, text, SendGroupList);
 
+                        ////// 替换表情
+                        //text = TextUtils.ReplaceEmojisWithHex(text);
+                        //var picGuid = TextUtils.ExtractPicGuid(text);
+                        //var qqLink = "";
+                        //if (picGuid != null)
+                        //{
+                        //    text = text.Replace(picGuid, "");
+                        //    qqLink = QQApiHelper.GetPicLink("488244998", picGuid);
+                        //}
                         //QQBroadSend.SendQQChat(text, qqLink);
                         wslog.Items.Add("已发送收信人：" + msg.MQ_robot + "发送人：" + msg.MQ_fromQQ + "内容：" + text);
 
@@ -377,6 +366,16 @@ namespace WindowsFormsApp1
             _ini.WriteIniString("xlc", "SendGroup", SendtextBox.Text);
             SendGroup = SendtextBox.Text;
             blockingWordsList = new List<string>(SendGroup.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            QQBroadSend.MoveWindowToTopLeft();
         }
     }
 }

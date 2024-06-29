@@ -71,7 +71,7 @@ namespace WindowsFormsApp1.Utils
         public static string ReplaceEmojisWithHex(string text)
         {
             // 正则表达式匹配 [emoji=XXXXXX] 格式，其中XXXXXX是十六进制字符  
-            string pattern = @"\[emoji=([A-Fa-f0-9]{6})\]";
+            string pattern = @"\[emoji=([A-Fa-f0-9])\]";
 
             // 使用正则表达式匹配并替换文本中的emoji  
             return Regex.Replace(text, pattern, match =>

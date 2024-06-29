@@ -56,7 +56,7 @@ namespace WindowsFormsApp1.Utils
         public static string GetPicLink(string bot,string picGuid)
         {
             var body = CreateMyqqReqBody("Api_GetPicLink");
-            body.SetParams(bot, 1,"2222" ,picGuid);
+            body.SetParams(bot, 1, "696827504", picGuid);
             var picjson = sendPost(body);
             var picLink = picjson!=null ?JsonConvert.DeserializeObject<QQPicLink>(picjson).ret : null;
             return picLink;

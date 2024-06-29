@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.wslog = new System.Windows.Forms.ListBox();
-            this.log = new System.Windows.Forms.TabControl();
+            this.SendQQ = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.SendtextBox = new System.Windows.Forms.TextBox();
             this.blockingWordsBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -50,14 +51,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.transRTB = new System.Windows.Forms.RichTextBox();
             this.orginRTB = new System.Windows.Forms.RichTextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.SendtextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.log.SuspendLayout();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.SendQQ.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MonGroupGrid)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.TransTab.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // wslog
@@ -71,16 +72,17 @@
             this.wslog.TabIndex = 1;
             this.wslog.SelectedIndexChanged += new System.EventHandler(this.wslog_SelectedIndexChanged);
             // 
-            // log
+            // SendQQ
             // 
-            this.log.Controls.Add(this.tabPage1);
-            this.log.Controls.Add(this.tabPage2);
-            this.log.Controls.Add(this.TransTab);
-            this.log.Location = new System.Drawing.Point(0, -1);
-            this.log.Name = "log";
-            this.log.SelectedIndex = 0;
-            this.log.Size = new System.Drawing.Size(802, 452);
-            this.log.TabIndex = 2;
+            this.SendQQ.Controls.Add(this.tabPage1);
+            this.SendQQ.Controls.Add(this.tabPage2);
+            this.SendQQ.Controls.Add(this.TransTab);
+            this.SendQQ.Controls.Add(this.tabPage3);
+            this.SendQQ.Location = new System.Drawing.Point(0, -1);
+            this.SendQQ.Name = "SendQQ";
+            this.SendQQ.SelectedIndex = 0;
+            this.SendQQ.Size = new System.Drawing.Size(802, 452);
+            this.SendQQ.TabIndex = 2;
             // 
             // tabPage1
             // 
@@ -101,6 +103,26 @@
             this.tabPage1.Text = "监控QQ群";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(216, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "发生QQ群";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // SendtextBox
+            // 
+            this.SendtextBox.Location = new System.Drawing.Point(218, 33);
+            this.SendtextBox.Multiline = true;
+            this.SendtextBox.Name = "SendtextBox";
+            this.SendtextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.SendtextBox.Size = new System.Drawing.Size(188, 171);
+            this.SendtextBox.TabIndex = 8;
+            this.SendtextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // blockingWordsBox
             // 
@@ -277,55 +299,51 @@
             this.orginRTB.TabIndex = 0;
             this.orginRTB.Text = "";
             // 
-            // contextMenuStrip1
+            // tabPage3
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.tabPage3.Controls.Add(this.button3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(794, 426);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "QQ发送设置";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // SendtextBox
+            // button3
             // 
-            this.SendtextBox.Location = new System.Drawing.Point(218, 33);
-            this.SendtextBox.Multiline = true;
-            this.SendtextBox.Name = "SendtextBox";
-            this.SendtextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.SendtextBox.Size = new System.Drawing.Size(188, 171);
-            this.SendtextBox.TabIndex = 8;
-            this.SendtextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(216, 15);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "发生QQ群";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
+            this.button3.Location = new System.Drawing.Point(258, 6);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 36);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "一键排列至左上角";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.log);
+            this.Controls.Add(this.SendQQ);
             this.Name = "MainForm";
             this.Text = "小驴车";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.log.ResumeLayout(false);
+            this.SendQQ.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MonGroupGrid)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.TransTab.ResumeLayout(false);
             this.TransTab.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.ListBox wslog;
-        private System.Windows.Forms.TabControl log;
+        private System.Windows.Forms.TabControl SendQQ;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button GetGroupBtn;
@@ -340,7 +358,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox transRTB;
         private System.Windows.Forms.RichTextBox orginRTB;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button transBtn;
         private System.Windows.Forms.Button button1;
@@ -348,6 +365,8 @@
         private System.Windows.Forms.TextBox blockingWordsBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox SendtextBox;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button button3;
     }
 }
 

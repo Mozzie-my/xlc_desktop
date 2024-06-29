@@ -128,6 +128,14 @@ namespace WindowsFormsApp1.Utils
         public const byte vbKeyF12 = 0x7B;  //F12 键
 
         #endregion
+        //找窗体
+        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "FindWindow")]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+
+        //拖动窗体
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
 
         #region 引用win32api方法
         /// <summary>
@@ -195,6 +203,16 @@ namespace WindowsFormsApp1.Utils
         #endregion
         [DllImport("user32.dll", SetLastError = true)]
         static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+
+        // 导入SetWindowPos函数  
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        // 窗口位置标志  
+        private const uint SWP_NOSIZE = 0x0001;
+        private const uint SWP_NOZORDER = 0x0004;
+
+
         public static void PressKey(Keys key, bool up)
         {
             const int KEYEVENTF_EXTENDEDKEY = 0x1;
@@ -247,7 +265,7 @@ namespace WindowsFormsApp1.Utils
         public static void SendQQChat(string msg, string picLink)
         {
             int times = 300;
-            Image picdata = null;
+            Image picdata = null;   
             if (!String.IsNullOrEmpty(picLink))
             {
                 picdata = CopyImageAndTextToClipboard(picLink, msg);
@@ -258,25 +276,50 @@ namespace WindowsFormsApp1.Utils
             var c = GetWindowsByClassNameAndStyle("TXGuiFoundation", "960F0000");
             c.ForEach(hwnd =>
             {
-                SetForegroundWindow(hwnd);
-                Thread.Sleep(times);
-            //设置剪切板数据
                 Clipboard.SetText(msg);
-                PostMessage(hwnd, 194, 0, msg);//向QQ输入框粘贴字符，this.textBox1.Text是要发送的文字信息
+                SetForegroundWindow(hwnd);
+                //StringBuilder windowTitle = new StringBuilder(256);
+                //GetWindowText(hwnd, windowTitle, windowTitle.Capacity);
+    
+                SendKeys.SendWait("^V");
+                //Thread.Sleep(times);
+                //设置剪切板数据
+                //Clipboard.SetText(msg);
+                //PostMessage(hwnd, 194, 0, msg);//向QQ输入框粘贴字符，this.textBox1.Text是要发送的文字信息
                 //SendCtrlV(hwnd);
-                if(picdata != null)
+                if (picdata != null)
                 {
                     Thread.Sleep(times);
                     Clipboard.SetImage(picdata);
-                    SendCtrlV(hwnd);
+                    //SendCtrlV(hwnd);
+                    SendKeys.SendWait("^V");
+
                 }
+
+                SendKeys.Send("{ENTER}");
                 Thread.Sleep(times);
-                SendCtrlEnter(hwnd);
+                //SendCtrlEnter(hwnd);
             });
 
             // 如果有图片先去下载下图片
 
         }
+
+        // 将窗口移动到屏幕的左上角  
+        public static void MoveWindowToTopLeft()
+        {
+            // 窗口的新位置（屏幕的左上角）  
+            int x = 0;
+            int y = 0;
+            var c = GetWindowsByClassNameAndStyle("TXGuiFoundation", "960F0000");
+            c.ForEach((hwnd) =>
+            {
+                // 调用SetWindowPos，不改变窗口大小，不改变Z顺序  
+                SetWindowPos(hwnd, IntPtr.Zero, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+            });
+        }
+
         /// <summary>
         /// 发送QQ聊天bacjk
         /// </summary>
