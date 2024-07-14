@@ -45,6 +45,11 @@ namespace WindowsFormsApp1
         //  发生qq群号
         string SendGroup = "";
         List<string> SendGroupList = new List<string>();
+
+        // 发送微信群
+        string WxSendGroup = "";
+        List<string> WxSendGroupList = new List<string>();
+
         public MainForm()
         {
 
@@ -63,6 +68,13 @@ namespace WindowsFormsApp1
             {
                 MonGroupID =sb.ToString();
                 MontextBox.Text = MonGroupID;
+            }
+            sb.Clear();
+            if(_ini.GetIniString("WX", "SendGroup", "", sb, sb.Capacity))
+            {
+                WxSendGroup = sb.ToString();
+                WxSendtextBox.Text = SendGroup;
+                WxSendGroupList = new List<string>(WxSendGroup.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
             }
             sb.Clear();
             if (_ini.GetIniString("xlc", "blockingWords", "", sb, sb.Capacity))
@@ -376,6 +388,66 @@ namespace WindowsFormsApp1
         private void button3_Click(object sender, EventArgs e)
         {
             QQBroadSend.MoveWindowToTopLeft();
+        }
+
+        private void getWxGroupListBtn_Click(object sender, EventArgs e)
+        {
+            var list = WxRobotHelper.GetGroupList();
+
+            //把群列表显示到表格中
+            wxGroupList.Rows.Clear();
+            foreach (var item in list)
+            {
+                int index = wxGroupList.Rows.Add();
+                if (WxSendGroup.IndexOf(item.wxid) != -1)
+                {
+                    wxGroupList.Rows[index].Cells[0].Value = true;
+                }
+                wxGroupList.Rows[index].Cells[1].Value = item.wxid;
+                wxGroupList.Rows[index].Cells[2].Value = item.nick;
+                wxGroupList.Rows[index].Cells[3].Value = item.groupMemberNum.ToString();
+            }
+
+            
+        }
+
+        private void wxGroupList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string wxid = wxGroupList.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string newval;
+            if ((bool)wxGroupList.Rows[e.RowIndex].Cells[0].EditedFormattedValue)
+            {
+                if (WxSendGroup.IndexOf(wxid) == -1)
+                {
+                    if (WxSendGroup != "")
+                    {
+                        newval = WxSendGroup + "#" + wxid;
+                    }
+                    else
+                    {
+                        newval = wxid;
+                    }
+                }
+                else
+                {
+                    newval = WxSendGroup;
+                }
+            }
+            else
+            {
+                List<string> c = WxSendGroup.Split('#').ToList<string>();
+                List<string> LIS = c.Where(x => x.Trim() != wxid).ToList();
+                newval = string.Join("#", LIS);
+            }
+            _ini.WriteIniString("WX", "SendGroup", newval);
+            WxSendGroup = newval;
+            WxSendtextBox.Text = newval;
+            WxSendGroupList = new List<string>(WxSendGroup.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        private void WxSendtextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

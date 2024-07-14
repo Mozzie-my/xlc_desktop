@@ -39,7 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.MontextBox = new System.Windows.Forms.TextBox();
             this.MonGroupGrid = new System.Windows.Forms.DataGridView();
-            this.seq = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nums = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,12 +52,22 @@
             this.orginRTB = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button3 = new System.Windows.Forms.Button();
+            this.wechat = new System.Windows.Forms.TabPage();
+            this.getWxGroupListBtn = new System.Windows.Forms.Button();
+            this.wxGroupList = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.wxid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nick = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupMemberNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WxSendtextBox = new System.Windows.Forms.TextBox();
             this.SendQQ.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MonGroupGrid)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.TransTab.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.wechat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wxGroupList)).BeginInit();
             this.SuspendLayout();
             // 
             // wslog
@@ -78,6 +87,7 @@
             this.SendQQ.Controls.Add(this.tabPage2);
             this.SendQQ.Controls.Add(this.TransTab);
             this.SendQQ.Controls.Add(this.tabPage3);
+            this.SendQQ.Controls.Add(this.wechat);
             this.SendQQ.Location = new System.Drawing.Point(0, -1);
             this.SendQQ.Name = "SendQQ";
             this.SendQQ.SelectedIndex = 0;
@@ -177,7 +187,6 @@
             // 
             this.MonGroupGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MonGroupGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.seq,
             this.id,
             this.name,
             this.nums});
@@ -188,15 +197,6 @@
             this.MonGroupGrid.Size = new System.Drawing.Size(361, 387);
             this.MonGroupGrid.TabIndex = 2;
             this.MonGroupGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MonGroupGrid_CellContentClick);
-            // 
-            // seq
-            // 
-            this.seq.HeaderText = "#";
-            this.seq.MinimumWidth = 6;
-            this.seq.Name = "seq";
-            this.seq.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.seq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.seq.Width = 20;
             // 
             // id
             // 
@@ -320,6 +320,85 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // wechat
+            // 
+            this.wechat.Controls.Add(this.WxSendtextBox);
+            this.wechat.Controls.Add(this.getWxGroupListBtn);
+            this.wechat.Controls.Add(this.wxGroupList);
+            this.wechat.Location = new System.Drawing.Point(4, 22);
+            this.wechat.Name = "wechat";
+            this.wechat.Padding = new System.Windows.Forms.Padding(3);
+            this.wechat.Size = new System.Drawing.Size(794, 426);
+            this.wechat.TabIndex = 4;
+            this.wechat.Text = "微信设置";
+            this.wechat.UseVisualStyleBackColor = true;
+            // 
+            // getWxGroupListBtn
+            // 
+            this.getWxGroupListBtn.Location = new System.Drawing.Point(423, 6);
+            this.getWxGroupListBtn.Name = "getWxGroupListBtn";
+            this.getWxGroupListBtn.Size = new System.Drawing.Size(97, 23);
+            this.getWxGroupListBtn.TabIndex = 4;
+            this.getWxGroupListBtn.Text = "获取微信列表";
+            this.getWxGroupListBtn.UseVisualStyleBackColor = true;
+            this.getWxGroupListBtn.Click += new System.EventHandler(this.getWxGroupListBtn_Click);
+            // 
+            // wxGroupList
+            // 
+            this.wxGroupList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.wxGroupList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.wxid,
+            this.nick,
+            this.groupMemberNum});
+            this.wxGroupList.Location = new System.Drawing.Point(423, 30);
+            this.wxGroupList.Name = "wxGroupList";
+            this.wxGroupList.RowHeadersWidth = 51;
+            this.wxGroupList.RowTemplate.Height = 23;
+            this.wxGroupList.Size = new System.Drawing.Size(361, 387);
+            this.wxGroupList.TabIndex = 3;
+            this.wxGroupList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.wxGroupList_CellContentClick);
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.HeaderText = "#";
+            this.dataGridViewCheckBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCheckBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewCheckBoxColumn1.Width = 20;
+            // 
+            // wxid
+            // 
+            this.wxid.HeaderText = "群号";
+            this.wxid.MinimumWidth = 6;
+            this.wxid.Name = "wxid";
+            this.wxid.Width = 125;
+            // 
+            // nick
+            // 
+            this.nick.HeaderText = "群昵称";
+            this.nick.MinimumWidth = 6;
+            this.nick.Name = "nick";
+            this.nick.Width = 125;
+            // 
+            // groupMemberNum
+            // 
+            this.groupMemberNum.HeaderText = "群人数";
+            this.groupMemberNum.MinimumWidth = 6;
+            this.groupMemberNum.Name = "groupMemberNum";
+            this.groupMemberNum.Width = 125;
+            // 
+            // WxSendtextBox
+            // 
+            this.WxSendtextBox.Location = new System.Drawing.Point(8, 30);
+            this.WxSendtextBox.Multiline = true;
+            this.WxSendtextBox.Name = "WxSendtextBox";
+            this.WxSendtextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.WxSendtextBox.Size = new System.Drawing.Size(398, 218);
+            this.WxSendtextBox.TabIndex = 5;
+            this.WxSendtextBox.TextChanged += new System.EventHandler(this.WxSendtextBox_TextChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -337,6 +416,9 @@
             this.TransTab.ResumeLayout(false);
             this.TransTab.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.wechat.ResumeLayout(false);
+            this.wechat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wxGroupList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -349,10 +431,6 @@
         private System.Windows.Forms.Button GetGroupBtn;
         private System.Windows.Forms.DataGridView MonGroupGrid;
         private System.Windows.Forms.TabPage TransTab;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn seq;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nums;
         private System.Windows.Forms.TextBox MontextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
@@ -367,6 +445,17 @@
         private System.Windows.Forms.TextBox SendtextBox;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TabPage wechat;
+        private System.Windows.Forms.Button getWxGroupListBtn;
+        private System.Windows.Forms.DataGridView wxGroupList;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn wxid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nick;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groupMemberNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nums;
+        private System.Windows.Forms.TextBox WxSendtextBox;
     }
 }
 
