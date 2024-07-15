@@ -66,8 +66,11 @@
             this.tabPage2.SuspendLayout();
             this.TransTab.SuspendLayout();
             this.tabPage3.SuspendLayout();
+<<<<<<< HEAD
             this.wechat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wxGroupList)).BeginInit();
+=======
+>>>>>>> d8c2ab382f8e41f54602be8b6b18b73bef0f998a
             this.SuspendLayout();
             // 
             // wslog
@@ -319,6 +322,7 @@
             this.button3.Text = "一键排列至左上角";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+<<<<<<< HEAD
             // 
             // wechat
             // 
@@ -398,6 +402,8 @@
             this.WxSendtextBox.Size = new System.Drawing.Size(398, 218);
             this.WxSendtextBox.TabIndex = 5;
             this.WxSendtextBox.TextChanged += new System.EventHandler(this.WxSendtextBox_TextChanged);
+=======
+>>>>>>> d8c2ab382f8e41f54602be8b6b18b73bef0f998a
             // 
             // MainForm
             // 
@@ -416,9 +422,12 @@
             this.TransTab.ResumeLayout(false);
             this.TransTab.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+<<<<<<< HEAD
             this.wechat.ResumeLayout(false);
             this.wechat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wxGroupList)).EndInit();
+=======
+>>>>>>> d8c2ab382f8e41f54602be8b6b18b73bef0f998a
             this.ResumeLayout(false);
 
         }
