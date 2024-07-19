@@ -158,6 +158,7 @@ namespace WindowsFormsApp1
                     }
                     else
                     {
+                        var oldtext = text;
                         text = transService.trans(text);
                         //var link = TextUtils.ExtractLink(text);
                         //var tbcode = TextUtils.ExtractTaobaoCode(text);
@@ -169,8 +170,23 @@ namespace WindowsFormsApp1
                         //        text = TextUtils.ReplaceLinkAndTaobaoCode(text, res.short_link, res.new_data);
                         //    }
                         //}
-                        QQBroadSend.SendQQChatBack(robotqq, text, SendGroupList);
-
+                        if (QQSwitch.Checked)
+                        {
+                            QQBroadSend.SendQQChatBack(robotqq, text, SendGroupList);
+                        }
+                        if (wxSwitch.Checked)
+                        {
+                            //// 替换表情
+                            var qqLink = TextUtils.ExtractPicGuid(oldtext);
+                            //var qqLink = "";
+                            //if (picGuid != null)
+                            //{
+                            //    text = text.Replace(picGuid, "");
+                            //    qqLink = QQApiHelper.GetPicLink(robotqq, picGuid);
+                            //}
+                            WxBoardSend.SendMsg(WxSendGroupList, text, qqLink);
+                        
+                        }
                         ////// 替换表情
                         //text = TextUtils.ReplaceEmojisWithHex(text);
                         //var picGuid = TextUtils.ExtractPicGuid(text);
@@ -204,6 +220,8 @@ namespace WindowsFormsApp1
                 DialogResult result = MessageBox.Show("未登录qq机器人", "提示", MessageBoxButtons.OK);
                 return;
             }
+            // 清空MonGroupGrid
+            MonGroupGrid.Rows.Clear();
             var c = QQApiHelper.GetGroupList(robotqq);
             c.ForEach(x =>
             {
@@ -446,6 +464,11 @@ namespace WindowsFormsApp1
         }
 
         private void WxSendtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wxSwitch_CheckedChanged(object sender, EventArgs e)
         {
 
         }

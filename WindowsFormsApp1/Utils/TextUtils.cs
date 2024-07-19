@@ -17,9 +17,12 @@ namespace WindowsFormsApp1.Utils
         }
         public static string ExtractPicGuid(string text)
         {
-            string picPattern = @"\[pic={([A-Fa-f0-9\-]+)}\.(\w+)\]";
-            Match linkMatch = Regex.Match(text, picPattern);
-            return linkMatch.Success ? linkMatch.Value : null;
+
+            //正则匹配 [pic=和]之间的字符串，如[pic=https://multimedia.nt.qq.com.cn/download?appid=1407&fileid=Cgk0ODgyNDQ5OTgSFD8RWxccrcM1-t_oGRIZ5LiWd77KGKDeByD_CijN46i1rrOHA1CAvaMB&rkey=CAISKNPsN0nSR8aL7q2lJEXdb1nfM2Y8IL4tpW437--KOiWf78xGLnyTMbg]
+
+            string picPattern = @"\[pic=(.*?)\]";
+            Match picMatch = Regex.Match(text, picPattern);
+            return picMatch.Success ? picMatch.Groups[1].Value : null;
         }
 
         public static string ExtractTaobaoCode(string text)
@@ -70,8 +73,8 @@ namespace WindowsFormsApp1.Utils
         // 转换成表情
         public static string ReplaceEmojisWithHex(string text)
         {
-            // 正则表达式匹配 [emoji=XXXXXX] 格式，其中XXXXXX是十六进制字符  
-            string pattern = @"\[emoji=([A-Fa-f0-9])\]";
+            //正则匹配下这个[emoji=E29D97123123]
+            string pattern = @"\[emoji=([A-Fa-f0-9]+)\]";
 
             // 使用正则表达式匹配并替换文本中的emoji  
             return Regex.Replace(text, pattern, match =>
@@ -88,6 +91,14 @@ namespace WindowsFormsApp1.Utils
                 // 返回替换后的emoji字符串  
                 return emoji;
             });
+        }        // 转换成表情
+        public static string removeEmojisWithHex(string text)
+        {
+            //正则匹配下这个[emoji=E29D97123123]
+            string pattern = @"\[emoji=([A-Fa-f0-9]+)\]";
+
+            // 使用正则表达式匹配并替换文本中的emoji  
+            return Regex.Replace(text, pattern, "");
         }
 
         // 辅助方法：将十六进制字符串转换为字节数组  

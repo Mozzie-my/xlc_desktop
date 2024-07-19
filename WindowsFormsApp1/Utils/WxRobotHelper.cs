@@ -26,10 +26,25 @@ namespace WindowsFormsApp1.Utils
         {
             var body = new WxCommQuery()
             {
-                type = "Q0006",
+                type = "Q0001",
                 data = new { 
                     wxid = wxid,
                     msg = msg
+                }
+
+            };
+            var res = sendPost(body);
+
+            return res.msg;
+        }
+        public static string SendImg(string wxid, string img)
+        {
+            var body = new WxCommQuery()
+            {
+                type = "Q0010",
+                data = new { 
+                    wxid = wxid,
+                    path = img
                 }
 
             };

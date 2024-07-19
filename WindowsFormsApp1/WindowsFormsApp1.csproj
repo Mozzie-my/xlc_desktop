@@ -375,6 +375,7 @@
     <Compile Include="Service\TaobaoService.cs" />
     <Compile Include="Service\TransService.cs" />
     <Compile Include="Utils\AppSetting.cs" />
+    <Compile Include="Utils\WxBoardSend.cs" />
     <Compile Include="Utils\WxRobotHelper.cs" />
     <Compile Include="Utils\TextUtils.cs" />
     <Compile Include="Utils\FilesINI.cs" />
@@ -387,6 +388,7 @@
     <Compile Include="Utils\RequestHelper.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
