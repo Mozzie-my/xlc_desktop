@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -28,10 +30,12 @@ using static System.Windows.Forms.LinkLabel;
 
 namespace WindowsFormsApp1
 {
+
+
     public partial class MainForm : Form
     {
-        QueueHelper<MQReceiveMsg> queueHelper = QueueHelper<MQReceiveMsg>.Instance;
-
+        private MessagePool _messagePool;
+        private CancellationTokenSource _cancellationTokenSource;
         private HttpListenerServer httpListenerServer;
         private TaobaoService taobaoService;
         private TransService transService;
@@ -39,16 +43,16 @@ namespace WindowsFormsApp1
         string MonGroupID="";
         // 屏蔽关键词
         string blockingWords = "";
-        string robotqq = "";
+        public static string robotqq = "";
         List<string> blockingWordsList = new List<string>();
 
         //  发生qq群号
-        string SendGroup = "";
-        List<string> SendGroupList = new List<string>();
+        public static string SendGroup = "";
+        public static List<string> SendGroupList = new List<string>();
 
         // 发送微信群
-        string WxSendGroup = "";
-        List<string> WxSendGroupList = new List<string>();
+        public static string WxSendGroup = "";
+        public static List<string> WxSendGroupList = new List<string>();
 
         public MainForm()
         {
@@ -56,12 +60,11 @@ namespace WindowsFormsApp1
             InitializeHttpListener();
 
             InitializeComponent();
+            _messagePool = new MessagePool(msgPool);
 
             taobaoService = new TaobaoService();
             transService = new TransService();
 
-
-            queueHelper.StartMonitoring();
 
             StringBuilder sb = new StringBuilder(300);
             if(_ini.GetIniString("MQ", "MonGroup", "", sb, sb.Capacity))
@@ -158,19 +161,10 @@ namespace WindowsFormsApp1
                     }
                     else
                     {
+                        var oldtext = text;
                         text = transService.trans(text);
-                        //var link = TextUtils.ExtractLink(text);
-                        //var tbcode = TextUtils.ExtractTaobaoCode(text);
-                        //if (!String.IsNullOrEmpty(link) || !String.IsNullOrEmpty(tbcode))
-                        //{
-                        //    var res = taobaoService.trans(text);
-                        //    if (res != null)
-                        //    {
-                        //        text = TextUtils.ReplaceLinkAndTaobaoCode(text, res.short_link, res.new_data);
-                        //    }
-                        //}
-                        QQBroadSend.SendQQChatBack(robotqq, text, SendGroupList);
 
+                        _messagePool.AddMessage(new Msg(text));
                         ////// 替换表情
                         //text = TextUtils.ReplaceEmojisWithHex(text);
                         //var picGuid = TextUtils.ExtractPicGuid(text);
@@ -185,7 +179,6 @@ namespace WindowsFormsApp1
 
                     }
 
-                    //queueHelper.Enqueue(msg);
 
                 }
             }));
@@ -204,6 +197,8 @@ namespace WindowsFormsApp1
                 DialogResult result = MessageBox.Show("未登录qq机器人", "提示", MessageBoxButtons.OK);
                 return;
             }
+            // 清空MonGroupGrid
+            MonGroupGrid.Rows.Clear();
             var c = QQApiHelper.GetGroupList(robotqq);
             c.ForEach(x =>
             {
@@ -448,6 +443,29 @@ namespace WindowsFormsApp1
         private void WxSendtextBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void wxSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            _messagePool.IsWxFlag = wxSwitch.Checked;
+        }
+
+        private async void boot_CheckedChanged(object sender, EventArgs e)
+        {
+            if (boot.Checked)
+            {
+                _messagePool.StartProcessing();
+            }
+            else
+            {
+                // 停止监听
+                _messagePool.StopProcessing();
+            }
+        }
+
+        private void QQSwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            _messagePool.IsQqFlag = QQSwitch.Checked;
         }
     }
 }

@@ -26,10 +26,25 @@ namespace WindowsFormsApp1.Utils
         {
             var body = new WxCommQuery()
             {
-                type = "Q0006",
+                type = "Q0001",
                 data = new { 
                     wxid = wxid,
                     msg = msg
+                }
+
+            };
+            var res = sendPost(body);
+
+            return res.msg;
+        }
+        public static string SendImg(string wxid, string img)
+        {
+            var body = new WxCommQuery()
+            {
+                type = "Q0010",
+                data = new { 
+                    wxid = wxid,
+                    path = img
                 }
 
             };
@@ -56,7 +71,8 @@ namespace WindowsFormsApp1.Utils
         {
 
             string url = AppSetting.Configuration["WXROBOT:URL"];
-            var postres = RequestHelper.StrPostAsync(JsonConvert.SerializeObject(body), url);
+            var b = JsonConvert.SerializeObject(body);
+            var postres = RequestHelper.StrPostAsync(b, url);
             var res = JsonConvert.DeserializeObject<WxResultComm>(postres.Result);
             if (res.code != 200)
             {
