@@ -164,7 +164,7 @@ namespace WindowsFormsApp1
                         var oldtext = text;
                         text = transService.trans(text);
 
-                        _messagePool.AddMessage(new Msg(text));
+                        _messagePool.AddMessage(new Msg(text, oldtext));
                         ////// 替换表情
                         //text = TextUtils.ReplaceEmojisWithHex(text);
                         //var picGuid = TextUtils.ExtractPicGuid(text);

@@ -61,7 +61,7 @@ public class MessagePool
                     {
                         // 加入到发送池内
                         //// 替换表情
-                        var qqLink = TextUtils.ExtractPicGuid(message.content, MainForm.robotqq);
+                        var qqLink = TextUtils.ExtractPicGuid(message.picUrl, MainForm.robotqq);
                         if (qqLink != null)
                         {
                             string picPattern = @"\[pic=(.*?)\]";

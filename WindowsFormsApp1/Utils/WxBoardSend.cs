@@ -15,13 +15,20 @@ namespace WindowsFormsApp1.Utils
             {
 
                 content = TextUtils.removeEmojisWithHex(content);
-                WxRobotHelper.SendMsg(user, content);
+
+                if (!string.IsNullOrEmpty(content))
+                {
+
+                    WxRobotHelper.SendMsg(user, content);
+                }
                 if (!string.IsNullOrEmpty(img))
                 {
                     // 延时1秒，防止图片发送失败
                     System.Threading.Thread.Sleep(500);
                     WxRobotHelper.SendImg(user, img);
                 }
+
+                System.Threading.Thread.Sleep(500);
             });
         }
     }
