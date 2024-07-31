@@ -162,7 +162,6 @@ namespace WindowsFormsApp1
                     else
                     {
                         var oldtext = text;
-                        text = transService.trans(text);
 
                         _messagePool.AddMessage(new Msg(text, oldtext));
                         ////// 替换表情
@@ -175,7 +174,6 @@ namespace WindowsFormsApp1
                         //    qqLink = QQApiHelper.GetPicLink("488244998", picGuid);
                         //}
                         //QQBroadSend.SendQQChat(text, qqLink);
-                        wslog.Items.Add("已发送收信人：" + msg.MQ_robot + "发送人：" + msg.MQ_fromQQ + "内容：" + text);
 
                     }
 
@@ -466,6 +464,11 @@ namespace WindowsFormsApp1
         private void QQSwitch_CheckedChanged(object sender, EventArgs e)
         {
             _messagePool.IsQqFlag = QQSwitch.Checked;
+        }
+
+        private void msgPool_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

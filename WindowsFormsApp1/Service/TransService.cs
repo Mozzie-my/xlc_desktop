@@ -20,13 +20,14 @@ namespace WindowsFormsApp1.Service
         {
             url = AppSetting.Configuration["TransUrl"];
         }
-        public String trans(string data)
+        public String trans(string data,string tail)
         {
             TbTransDataChild res = new TbTransDataChild();
             string sendurl = url + "/MsgHandle/transform";
 
             var reqdata = new { 
-                content=data
+                content=data,
+                tailDIY=tail
             };
 
 
