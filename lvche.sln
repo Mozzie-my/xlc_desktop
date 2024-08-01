@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34004.107
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{F30941B8-92F3-454E-811A-E9FB10A028ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainView", "WindowsFormsApp1\MainView.csproj", "{F30941B8-92F3-454E-811A-E9FB10A028ED}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "xlcsetup", "xlcsetup\xlcsetup.vdproj", "{79B82674-FCB7-4523-8000-BD77A0B2C9E2}"
 EndProject

@@ -64,8 +64,8 @@
             this.GetGroupBtn = new System.Windows.Forms.Button();
             this.SendQQ = new System.Windows.Forms.TabControl();
             this.mainSetting = new System.Windows.Forms.TabPage();
-            this.boot = new System.Windows.Forms.CheckBox();
             this.msgPool = new System.Windows.Forms.ListBox();
+            this.boot = new System.Windows.Forms.CheckBox();
             this.wechat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wxGroupList)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -449,6 +449,16 @@
             this.mainSetting.Text = "主界面";
             this.mainSetting.UseVisualStyleBackColor = true;
             // 
+            // msgPool
+            // 
+            this.msgPool.FormattingEnabled = true;
+            this.msgPool.ItemHeight = 12;
+            this.msgPool.Location = new System.Drawing.Point(13, 28);
+            this.msgPool.Name = "msgPool";
+            this.msgPool.Size = new System.Drawing.Size(771, 364);
+            this.msgPool.TabIndex = 1;
+            this.msgPool.SelectedIndexChanged += new System.EventHandler(this.msgPool_SelectedIndexChanged);
+            // 
             // boot
             // 
             this.boot.AutoSize = true;
@@ -459,16 +469,6 @@
             this.boot.Text = "发送总开关";
             this.boot.UseVisualStyleBackColor = true;
             this.boot.CheckedChanged += new System.EventHandler(this.boot_CheckedChanged);
-            // 
-            // msgPool
-            // 
-            this.msgPool.FormattingEnabled = true;
-            this.msgPool.ItemHeight = 12;
-            this.msgPool.Location = new System.Drawing.Point(13, 28);
-            this.msgPool.Name = "msgPool";
-            this.msgPool.Size = new System.Drawing.Size(771, 364);
-            this.msgPool.TabIndex = 1;
-            this.msgPool.SelectedIndexChanged += new System.EventHandler(this.msgPool_SelectedIndexChanged);
             // 
             // MainForm
             // 
