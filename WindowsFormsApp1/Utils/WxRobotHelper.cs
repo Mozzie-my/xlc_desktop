@@ -12,7 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using WindowsFormsApp1.Model;
 using WindowsFormsApp1.Model.Wx;
-using WindowsFormsApp1.Properties;
 using Wsm.Utils;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 

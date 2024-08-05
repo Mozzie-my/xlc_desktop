@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using NLog;
 
 namespace WindowsFormsApp1.Utils
 {
@@ -16,32 +17,41 @@ namespace WindowsFormsApp1.Utils
     /// </summary>
     public class RequestHelper
     {
+        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+        private const int RequestTimeout = 30000; // 请求超时时间，单位为毫秒
 
-        public static string Post(string postData, string Url)
+        public static async Task<string> PostAsync(string postData, string url)
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(Url);
-            req.Method = "POST";
-            req.Timeout = 3000;//设置请求超时时间，单位为毫秒 
-            req.ContentType = "application/json";
-
-            byte[] data = Encoding.UTF8.GetBytes(postData);
-
-            req.ContentLength = data.Length;
-
-            using (Stream reqStream = req.GetRequestStream())
+            try
             {
-                reqStream.Write(data, 0, data.Length);
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+                req.Method = "POST";
+                req.Timeout = RequestTimeout;
+                req.ContentType = "application/json";
 
-                reqStream.Close();
+                byte[] data = Encoding.UTF8.GetBytes(postData);
+                req.ContentLength = data.Length;
+
+                using (Stream reqStream = await req.GetRequestStreamAsync())
+                {
+                    await reqStream.WriteAsync(data, 0, data.Length);
+                }
+
+                using (HttpWebResponse response = (HttpWebResponse)await req.GetResponseAsync())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                {
+                    string content = await reader.ReadToEndAsync();
+                    logger.Info("Request completed successfully.");
+                    logger.Debug("Response content: {0}", content);
+                    return content;
+                }
             }
-            HttpWebResponse response = (HttpWebResponse)req.GetResponse();
-            Stream stream = response.GetResponseStream();
-            Encoding encode = Encoding.UTF8;
-            StreamReader reader = new StreamReader(stream, encode);
-            string content = reader.ReadToEnd();
-            stream.Close();
-            reader.Close();
-            return content;
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error occurred while processing the request.");
+                throw;
+            }
         }
         public static async Task<string> StrPostAsync(string postData, string Url)
         {

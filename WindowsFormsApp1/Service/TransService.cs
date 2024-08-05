@@ -20,18 +20,18 @@ namespace WindowsFormsApp1.Service
         {
             url = AppSetting.Configuration["TransUrl"];
         }
-        public String trans(string data,string tail)
+        public async Task<String> Trans(string data,string tail)
         {
-            TbTransDataChild res = new TbTransDataChild();
+           // TbTransDataChild res = new TbTransDataChild();
             string sendurl = url + "/MsgHandle/transform";
 
             var reqdata = new { 
                 content=data,
                 tailDIY=tail
             };
+            var res = await RequestHelper.PostAsync(JsonConvert.SerializeObject(reqdata), sendurl);
 
-
-            var resdata = JsonConvert.DeserializeObject<CommonResult>(RequestHelper.Post(JsonConvert.SerializeObject( reqdata), sendurl));
+            var resdata = JsonConvert.DeserializeObject<CommonResult>(res);
             if (resdata.code == "200")
             {
                 return resdata.data;

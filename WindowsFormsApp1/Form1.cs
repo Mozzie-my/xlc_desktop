@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.FileSystemGlobbing.Internal;
+﻿using MainView.Controller;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,10 +39,12 @@ namespace WindowsFormsApp1
         private MessagePool _messagePool;
         private CancellationTokenSource _cancellationTokenSource;
         private HttpListenerServer httpListenerServer;
+        private HttpListenerServer wxListenerServer;
         private TaobaoService taobaoService;
         private TransService transService;
         IniFileHelper _ini = new IniFileHelper();
         string MonGroupID="";
+        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
         // 屏蔽关键词
         string blockingWords = "";
         public static string robotqq = "";
@@ -60,7 +64,9 @@ namespace WindowsFormsApp1
             InitializeHttpListener();
 
             InitializeComponent();
-            _messagePool = new MessagePool(msgPool);
+
+            new WechatController();
+            _messagePool = new MessagePool(msgPool,wslog);
 
             taobaoService = new TaobaoService();
             transService = new TransService();
@@ -102,6 +108,9 @@ namespace WindowsFormsApp1
             string url = "http://localhost:88/";
             httpListenerServer = new HttpListenerServer(url);
             httpListenerServer.PostDataReceived += OnPostDataReceived;
+            string wxurl = "http://127.0.0.1:7777/DaenWxHook/server/";
+            wxListenerServer = new HttpListenerServer(wxurl);
+            wxListenerServer.PostDataReceived += OnPostDataReceived;
             StartHttpListener();
         }
 
@@ -141,7 +150,17 @@ namespace WindowsFormsApp1
         private void StartHttpListener()
         {
             Task.Run(() => httpListenerServer.StartListening());
+            //Task.Run(() => wxListenerServer.StartListening());
         }
+        private void OnPostWxDataReceived(string data)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                Console.WriteLine(data);
+                
+            }));
+        }
+
         /// <summary>
         /// 接收机器人消息
         /// </summary>
@@ -151,7 +170,7 @@ namespace WindowsFormsApp1
             // 使用 Control.Invoke 将结果传递给 UI 线程
             BeginInvoke(new Action(() =>
             {
-               var msg = JsonConvert.DeserializeObject<MQReceiveMsg>(data);
+               var msg = JsonConvert.DeserializeObject<MQReceiveMsg>(data);    
                 if (MonGroupID.IndexOf(msg.MQ_fromID) != -1)
                 {
                     var text = HttpUtility.UrlDecode(msg.MQ_msg);
@@ -164,6 +183,8 @@ namespace WindowsFormsApp1
                         var oldtext = text;
 
                         _messagePool.AddMessage(new Msg(text, oldtext));
+                        wslog.Items.Add("监控到新消息：收信人：" + msg.MQ_robot + "发送人：" + msg.MQ_fromQQ + "内容：" + text);
+                        wslog.SelectedIndex = wslog.Items.Count - 1;
                         ////// 替换表情
                         //text = TextUtils.ReplaceEmojisWithHex(text);
                         //var picGuid = TextUtils.ExtractPicGuid(text);
@@ -448,11 +469,12 @@ namespace WindowsFormsApp1
             _messagePool.IsWxFlag = wxSwitch.Checked;
         }
 
-        private async void boot_CheckedChanged(object sender, EventArgs e)
+        private void boot_CheckedChanged(object sender, EventArgs e)
         {
             if (boot.Checked)
             {
-                _messagePool.StartProcessing();
+
+                Task.Run(() => _messagePool.StartProcessing());
             }
             else
             {
